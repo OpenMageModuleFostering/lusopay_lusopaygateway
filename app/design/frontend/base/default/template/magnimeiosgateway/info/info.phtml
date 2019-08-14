@@ -1,0 +1,88 @@
+<p><strong><?php echo $this->escapeHtml($this->getMethod()->getMensagem()) ?></strong></p>
+      <?php
+      
+
+      $referencias = $this->htmlEscape($this->getInfo()->getMagnimeiosReferencia());
+	  
+		if(!is_null($referencias)){
+			
+			$re1='.*?'; # Non-greedy match on filler
+        	$re2='(\\d+)';  # Integer Number 1
+        	$re3='.*?'; # Non-greedy match on filler
+        	$re4='(\\d+)';  # Integer Number 2
+        	
+        	if ($c=preg_match_all ("/".$re1.$re2.$re3.$re4."/is", $referencias, $matches))
+        	{
+            $int1=$matches[1][0];
+            $int2=$matches[2][0];
+        	}
+			
+
+			
+			if ($int1 == '1'){
+				$showPS = 'display:none;';
+				$int1='';
+			}
+			else{
+				$showPS = '';
+				$int1 = substr($int1,0,3).' '.substr($int1,3,3).' '.substr($int1,6,3).' '.substr($int1,9,4);
+			}
+		
+			if ($int2 == '1'){
+				$showMB = 'display:none;';
+				$int2='';
+			}
+			else{
+				$showMB = '';
+				$int2 = substr($int2,0,3).' '.substr($int2,3,3).' '.substr($int2,6,3);
+			}
+			
+			
+			
+			?>
+			<!--<table border="0" cellspacing="1" cellpadding="0" Style="<?php echo $showMB;?>">-->
+  			
+  			
+    		
+    			<table border="0" cellspacing="1" cellpadding="0" Style="<?php echo $showMB;?>">
+    				<tr>
+    		<td colspan="2" align="center"><img src="http://www.lusopay.com/modulos/imagens/Logo_Lusopay_MB125x80px.png" border="0" alt="<?php echo $this->getMethod()->getTitle(); ?>" title="<?php echo $this->getMethod()->getTitle(); ?>"  /></td>
+  			</tr>
+			
+			
+      <tr>
+        <td><?php echo $this->__('<strong>Entidade:</strong>'); ?></td>
+        <td><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosEntidade()) ?></td>
+      </tr>
+      <tr>
+        <td><?php echo $this->__('<strong>Referência:</strong>'); ?> </td>
+        <td>&nbsp;<?php echo $int2 ?></td>
+      </tr>
+      <tr>
+        <td><?php echo $this->__('<strong>Montante:</strong>'); ?></td>
+        <td><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR'; ?></td>
+      </tr>
+      </table>
+      <table border="0" cellspacing="1" cellpadding="0" Style="<?php echo $showPS;?>">
+      <tr>
+      	<td colspan="2" align="center"><img src="http://www.lusopay.com/modulos/imagens/Logo_Lusopay_Payshop125x80px.png" border="0" alt="<?php echo $this->getMethod()->getTitle(); ?>" title="<?php echo $this->getMethod()->getTitle(); ?>" /></td>
+      </tr>
+      <tr>
+        <td><?php echo $this->__('<strong>Referência:</strong>'); ?> </td>
+        <td><?php echo $int1 ?></td>
+      </tr>
+      <tr>
+        <td><?php echo $this->__('<strong>Montante:</strong>'); ?></td>
+        <td><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR'; ?></td>
+      </tr>
+    </table>
+<?php			
+			
+		}
+		else {
+			echo "A geração da referencia falhou!";
+		}
+
+   ?>
+   <?php echo $this->getChildHtml()?>     
+      

@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Lusopay_LusopayGateway",
+    "type": "magento-module",
+    "license": "OSL-v3.0",
+    "homepage": "",
+    "description": "Pagamentos por Multibanco e / ou Payshop (by LUSOPAY)",
+    "authors": [
+    {
+        "name": "Lusopay",
+        "email": "hf@lusopay.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
