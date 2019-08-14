@@ -75,60 +75,70 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
 		
 			$chave       = $this->getConfigData('chave');
 			$nif         = $this->getConfigData('nif');
-			//var_dump($chave);
-			//echo $nif;
-			//Data, connection, auth
-			//webservice de teste
-			//$soapUrl = "http://development.magnimeios.pt/MagnimeiosWS.asmx?op=GetNewDynamicRef"; // asmx URL of WSDL
-        	$soapUrl = "http://webservice.magnimeios.pt/MagnimeiosWS.asmx?op=GetNewDynamicRef"; // asmx URL of WSDL
-
-        	// xml post structure
-        	$xml_post_string = '<?xml version="1.0" encoding="utf-8"?>
-                            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                              <soap12:Body>
-                                <GetNewDynamicRef xmlns="http://tempuri.org/">
-                                  <clientGuid>'.$chave.'</clientGuid>
-                                  <nif>'.$nif.'</nif>
-                                  <valueList>
-                                    <Value>
-                                      <amount>'.$order_value.'</amount>
-                                      <description>'.$order_id.'</description>
-                                      <serviceType>Both</serviceType>
-                                    </Value>
-                                  </valueList>
-                                  <sendEmail>true</sendEmail>
-                                </GetNewDynamicRef>
-                              </soap12:Body>
-                            </soap12:Envelope>';
-
-        $headers = array(
-                    "Host: webservice.magnimeios.pt",
-                    "Content-type: text/xml;charset=\"utf-8\"",
-                    "Accept: text/xml",
-                    "Cache-Control: no-cache",
-                    "Pragma: no-cache",
-                    "SOAPAction: http://tempuri.org/GetNewDynamicRef", 
-                    "Content-length: ".strlen($xml_post_string),
-                ); //SOAPAction: your op URL
-
-        $url = $soapUrl;
+			
+			
+			
+			
+			$soapUrl = "https://services.lusopay.com/PaymentServices/PaymentServices.svc?wsdl";
+		
+		$xml_post_string='<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:pay="http://schemas.datacontract.org/2004/07/PaymentServices">
+   <soapenv:Body>
+      <tem:getNewDynamicReference>
+         <!--Optional:-->
+         <tem:clientGuid>'.$chave.'</tem:clientGuid>
+         <!--Optional:-->
+         <tem:vatNumber>'.$nif.'</tem:vatNumber>
+         <!--Optional:-->
+         <tem:valueList>
+            <!--Zero or more repetitions:-->
+            <pay:References>
+               <!--Optional:-->
+               <pay:amount>'.$order_value.'</pay:amount>
+               <!--Optional:-->
+               <pay:description>'.$order_id.'</pay:description>
+               <!--Optional:-->
+               <pay:serviceType>Both</pay:serviceType>
+            </pay:References>
+         </tem:valueList>
+         <!--Optional:-->
+         <tem:sendEmail>true</tem:sendEmail>
+      </tem:getNewDynamicReference>
+   </soapenv:Body>
+</soapenv:Envelope>';
 
 
-        // PHP cURL  for https connection with auth
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string); // the SOAP request
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$headers = array(
+		            "Host: services.lusopay.com",
+		            "Content-type: text/xml;charset=\"utf-8\"",
+		            "Accept: text/xml",
+		            "Cache-Control: no-cache",
+		            "Pragma: no-cache",
+		            "SOAPAction: http://tempuri.org/IPaymentServices/getNewDynamicReference", 
+		            "Content-length: ".strlen($xml_post_string),
+		        );
 
-        // converting
-        $response = curl_exec($ch); 
-        curl_close($ch);
+//SOAPAction: your op URL
+$url = $soapUrl;
+// PHP cURL for http connection with auth
+$ch = curl_init();
+				
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+	  curl_setopt($ch, CURLOPT_URL, $url);
+	  
+	  curl_setopt($ch, CURLOPT_POST, 1);
+	  curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string);
+	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	  curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $referenceMB = "/<referenceMB>(.*?)<\/referenceMB>/s";
-        $referencePS = "/<referencePS>(.*?)<\/referencePS>/s";
+	$response = curl_exec($ch);
+		
+		curl_close($ch);
+
+		$referenceMB = "/<a:referenceMB>(.*?)<\/a:referenceMB>/s";
+		$referencePS = "/<a:referencePS>(.*?)<\/a:referencePS>/s";
+			
         if(preg_match($referencePS,$response,$referencePS_value) && preg_match($referenceMB, $response, $referenceMB_value)) {
             $refs[1] = $referencePS_value[1];
             //$refs[1] = -1;
@@ -188,58 +198,67 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
 		
 				$chave       = $this->getConfigData('chave');
 				$nif         = $this->getConfigData('nif');
+				
+				$soapUrl = "https://services.lusopay.com/PaymentServices_test/PaymentServices.svc?wsdl";
+		
+		$xml_post_string='<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:pay="http://schemas.datacontract.org/2004/07/PaymentServices">
+   <soapenv:Body>
+      <tem:getNewDynamicReference>
+         <!--Optional:-->
+         <tem:clientGuid>'.$chave.'</tem:clientGuid>
+         <!--Optional:-->
+         <tem:vatNumber>'.$nif.'</tem:vatNumber>
+         <!--Optional:-->
+         <tem:valueList>
+            <!--Zero or more repetitions:-->
+            <pay:References>
+               <!--Optional:-->
+               <pay:amount>'.$order_value.'</pay:amount>
+               <!--Optional:-->
+               <pay:description>'.$order_id.'</pay:description>
+               <!--Optional:-->
+               <pay:serviceType>Both</pay:serviceType>
+            </pay:References>
+         </tem:valueList>
+         <!--Optional:-->
+         <tem:sendEmail>true</tem:sendEmail>
+      </tem:getNewDynamicReference>
+   </soapenv:Body>
+</soapenv:Envelope>';
+
+
+$headers = array(
+		            "Host: services.lusopay.com",
+		            "Content-type: text/xml;charset=\"utf-8\"",
+		            "Accept: text/xml",
+		            "Cache-Control: no-cache",
+		            "Pragma: no-cache",
+		            "SOAPAction: http://tempuri.org/IPaymentServices/getNewDynamicReference", 
+		            "Content-length: ".strlen($xml_post_string),
+		        );
+
+//SOAPAction: your op URL
+$url = $soapUrl;
+// PHP cURL for http connection with auth
+$ch = curl_init();
+				
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+	  curl_setopt($ch, CURLOPT_URL, $url);
+	  
+	  curl_setopt($ch, CURLOPT_POST, 1);
+	  curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string);
+	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	  curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$response = curl_exec($ch);
+		
+		curl_close($ch);
+
+		$referenceMB = "/<a:referenceMB>(.*?)<\/a:referenceMB>/s";
+		$referencePS = "/<a:referencePS>(.*?)<\/a:referencePS>/s";
 			
-
-				//$soapUrl = "http://development.magnimeios.pt/MagnimeiosWS.asmx?op=GetNewDynamicRef"; // asmx URL of WSDL
-				$soapUrl = "http://webservice.magnimeios.pt/MagnimeiosWS.asmx?op=GetNewDynamicRef"; // asmx URL of WSDL
-
-				// xml post structure
-				$xml_post_string = '<?xml version="1.0" encoding="utf-8"?>
-                            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                              <soap12:Body>
-                                <GetNewDynamicRef xmlns="http://tempuri.org/">
-                                  <clientGuid>'.$chave.'</clientGuid>
-                                  <nif>'.$nif.'</nif>
-                                  <valueList>
-                                    <Value>
-                                      <amount>'.$order_value.'</amount>
-                                      <description>'.$order_id.'</description>
-                                      <serviceType>Both</serviceType>
-                                    </Value>
-                                  </valueList>
-                                  <sendEmail>true</sendEmail>
-                                </GetNewDynamicRef>
-                              </soap12:Body>
-                            </soap12:Envelope>';
-
-					$headers = array(
-                    "Host: webservice.magnimeios.pt",
-                    "Content-type: text/xml;charset=\"utf-8\"",
-                    "Accept: text/xml",
-                    "Cache-Control: no-cache",
-                    "Pragma: no-cache",
-                    "SOAPAction: http://tempuri.org/GetNewDynamicRef", 
-                    "Content-length: ".strlen($xml_post_string),
-                ); //SOAPAction: your op URL
-
-				$url = $soapUrl;
-
-
-			// PHP cURL  for https connection with auth
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_post_string); // the SOAP request
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	
-			// converting
-			$response = curl_exec($ch); 
-			curl_close($ch);
-	
-			$referenceMB = "/<referenceMB>(.*?)<\/referenceMB>/s";
-			$referencePS = "/<referencePS>(.*?)<\/referencePS>/s";
 			if(preg_match($referencePS,$response,$referencePS_value) && preg_match($referenceMB, $response, $referenceMB_value)) {
 				$refs[1] = $referencePS_value[1];
 				$refs[2] = $referenceMB_value[1];
