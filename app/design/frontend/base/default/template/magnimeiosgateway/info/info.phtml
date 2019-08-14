@@ -1,4 +1,5 @@
 <?php
+
       //Get Referencias
       $referencias = $this->htmlEscape($this->getInfo()->getMagnimeiosReferencia());
 	  
@@ -16,8 +17,8 @@
         }
 		
 		if ($int1 == '1'){
-				$showPS = 'display:none;';
-				$int1='';
+			$showPS = 'display:none';
+			$int1='';
 		}
 		else{
 			$showPS = '';
@@ -25,7 +26,7 @@
 		}
 		
 		if ($int2 == '1'){
-			$showMB = 'display:none;';
+			$showMB = 'display:none';
 			$int2='';
 		}
 		else{
@@ -39,7 +40,7 @@
 
 
   <div align="center">
-<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showMB;?>">
+<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showMB;?> !important;">
     <tbody><tr>
         <td style="font-size: x-small; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>Pagamento por Multibanco (By LUSOPAY)</center></td>
     </tr>
@@ -68,7 +69,7 @@
 	
 
 	
-	<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showPS;?>">
+	<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showPS;?> !important;">
     <tbody>
 	<tr>
         <td style="font-size: x-small; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>Pagamento por Payshop (By LUSOPAY)</center></td>
