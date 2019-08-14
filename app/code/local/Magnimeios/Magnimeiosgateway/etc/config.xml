@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Magnimeios_Magnimeiosgateway>
-            <version>2.3.10</version>
+            <version>2.3.5</version>
         </Magnimeios_Magnimeiosgateway>
     </modules>
     <frontend>
@@ -133,7 +133,7 @@
                 <specificcountry>PT</specificcountry>
 				<chave></chave>
 				<nif></nif>
-				<mensagem>Aviso: Na página seguinte poderá ver a(s) tabela(s).</mensagem>
+				<mensagem>Aviso Importante: Não efetue o pagamento antes de finalizar a sua encomenda, só assim é que será válida. Na página seguinte pode rever a(s) tabela(s).</mensagem>
                 <payment_action>order</payment_action>
 				<active_callback>0</active_callback>
             </magnimeiosgateway>

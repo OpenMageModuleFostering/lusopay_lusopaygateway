@@ -21,7 +21,7 @@ class Magnimeios_Magnimeiosgateway_CallbackController extends Mage_Core_Controll
 				//$refPS = $this -> getRequest() -> getParam('ref');
 				$valor = $this -> getRequest() -> getParam('valor');
 				$valor_final = str_replace(',', '.',$valor);
-				$valor_total_final = number_format($valor_final, 2,'.','');
+				$valor_total_final = number_format($valor_final, 2);
 				
 				if ($entidade == '11024') {
 
@@ -43,13 +43,7 @@ class Magnimeios_Magnimeiosgateway_CallbackController extends Mage_Core_Controll
 
 					$oid = $row["id_order"];
 
-					//var_dump('-----------------------------------'.$oid);
-
 					$order = Mage::getModel('sales/order') -> load($oid, 'increment_id');
-
-					//var_dump('------------------------------'.$order);
-
-
 					$id = $order -> getId();
 
 					try {
@@ -58,12 +52,11 @@ class Magnimeios_Magnimeiosgateway_CallbackController extends Mage_Core_Controll
 						$invoice -> register();
 						Mage::getModel('core/resource_transaction') -> addObject($invoice) -> addObject($invoice -> getOrder()) -> save();
 
-						
-                        //$invoice -> sendEmail(true, '');
+						$invoice -> sendEmail(true, '');
 						$order -> setState(Mage_Sales_Model_Order::STATE_PROCESSING, true);
 						$order -> save();
 
-						$sql = "UPDATE magnimeiosreferences SET `STATUS` = 'PAGO' WHERE `id_order` = '" . $oid. "'";
+						$sql = "UPDATE magnimeiosreferences SET `STATUS` = 'PAGO' WHERE `id_order` = " . $oid;
 						$db -> query($sql);
 
 						echo 'True';

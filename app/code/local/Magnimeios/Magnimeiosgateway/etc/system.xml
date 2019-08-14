@@ -4,7 +4,7 @@
         <payment>
             <groups>
                 <magnimeiosgateway translate="label" module="payment">                    
-                    <label><![CDATA[LUSOPAY - Pagamentos por Refer&ecirc;ncias Multibanco / Payshop]]></label>
+                    <label><![CDATA[LUSOPAY - Pagamentos por Refer&ecirc;ncias Multibanco e / ou Payshop]]></label>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>

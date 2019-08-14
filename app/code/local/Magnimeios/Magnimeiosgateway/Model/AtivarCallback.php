@@ -96,7 +96,7 @@ class Magnimeios_Magnimeiosgateway_Model_AtivarCallback extends Mage_Core_Model_
 			$body = "
 			<fieldset>
 		
-			Desejo ativar o sistema Callback na plataforma Magento<br/><br/>
+			Desejo activar o sistema Callback<br/><br/>
 			Os meus dados:<br/><br/>
 		
 			NIF: ".Mage::getStoreConfig('payment/magnimeiosgateway/nif')."<br/><br/>
@@ -110,9 +110,9 @@ class Magnimeios_Magnimeiosgateway_Model_AtivarCallback extends Mage_Core_Model_
 			</fieldset>";
 			$mail = Mage::getModel('core/email');
 			$mail->setToName('LUSOPAY');
-			$mail->setToEmail('dev@magnimeios.pt');
+			$mail->setToEmail('geral@lusopay.com');
 			$mail->setBody($body);
-			$mail->setSubject('Ativar Callback');
+			$mail->setSubject('Activar Callback');
 			$mail->setFromEmail(Mage::getStoreConfig('trans_email/ident_general/email'));
 			$mail->setFromName(Mage::getStoreConfig('trans_email/ident_general/name'));
 			$mail->setType('html');// You can use 'html' or 'text'
