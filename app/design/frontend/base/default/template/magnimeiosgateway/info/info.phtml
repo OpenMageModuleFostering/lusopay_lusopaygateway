@@ -1,8 +1,10 @@
 
       <?php
       
-
+     
       $referencias = $this->htmlEscape($this->getInfo()->getMagnimeiosReferencia());
+	  
+	  
 	  
 		if(!is_null($referencias)){
 			
@@ -40,13 +42,13 @@
 			
 			
 			?>
-			<!--<table border="0" cellspacing="1" cellpadding="0" Style="<?php echo $showMB;?>">-->
+			
   			
   			
     		
     			<table border="0" cellspacing="1" cellpadding="0" Style="<?php echo $showMB;?>">
     				<tr>
-    		<td colspan="2" align="center"><img src="http://www.lusopay.pt/imagens/modulos/Logo_Lusopay_MB125x80px.png" border="0" alt="<?php echo $this->getMethod()->getTitle(); ?>" title="Pagamento por Multibanco"  /></td>
+    		<td colspan="2"><img src="http://www.lusopay.pt/imagens/modulos/Logo_Lusopay_MB125x80px.png" border="0" alt="<?php echo $this->getMethod()->getTitle(); ?>" title="Pagamento por Multibanco"  /></td>
   			</tr>
 			
 			
@@ -65,7 +67,7 @@
       </table>
       <table border="0" cellspacing="1" cellpadding="0" Style="<?php echo $showPS;?>">
       <tr>
-      	<td colspan="2" align="center"><img src="http://www.lusopay.pt/imagens/modulos/Logo_Lusopay_Payshop125x80px.png" border="0" alt="<?php echo $this->getMethod()->getTitle(); ?>" title="Pagamento por Payshop" /></td>
+      	<td colspan="2"><img src="http://www.lusopay.pt/imagens/modulos/Logo_Lusopay_Payshop125x80px.png" border="0" alt="<?php echo $this->getMethod()->getTitle(); ?>" title="Pagamento por Payshop" /></td>
       </tr>
       <tr>
         <td><?php echo $this->__('<strong>Referência:</strong>'); ?> </td>

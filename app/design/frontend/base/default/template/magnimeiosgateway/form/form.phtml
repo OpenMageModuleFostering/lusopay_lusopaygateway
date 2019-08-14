@@ -1,7 +1,7 @@
 <fieldset class="form-list">
     <ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
-        
-		
-    
+        <?php if ($this->getMethod()->getMensagem()): ?>
+        <?php echo '<li>' . 'Após confirmação da encomenda vai receber um e-mail com as referências.' . '</li>'; ?>
+		<?php endif; ?>		
     </ul>
 </fieldset>
