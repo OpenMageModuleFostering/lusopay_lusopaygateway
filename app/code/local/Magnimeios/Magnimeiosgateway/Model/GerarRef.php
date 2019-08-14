@@ -101,7 +101,7 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
             </pay:References>
          </tem:valueList>
          <!--Optional:-->
-         <tem:sendEmail>true</tem:sendEmail>
+         <tem:sendEmail>false</tem:sendEmail>
       </tem:getNewDynamicReference>
    </soapenv:Body>
 </soapenv:Envelope>';
@@ -224,7 +224,7 @@ $ch = curl_init();
             </pay:References>
          </tem:valueList>
          <!--Optional:-->
-         <tem:sendEmail>true</tem:sendEmail>
+         <tem:sendEmail>false</tem:sendEmail>
       </tem:getNewDynamicReference>
    </soapenv:Body>
 </soapenv:Envelope>';
