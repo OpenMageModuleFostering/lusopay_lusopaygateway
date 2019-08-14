@@ -50,7 +50,7 @@ class Magnimeios_Magnimeiosgateway_Block_Checkout_Success extends Mage_Checkout_
 		
 		$tabela ='
 		<div align="center">
-		<table cellpadding="3" width="300px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;'.$showMB.'">
+		<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;'.$showMB.'">
 					<tr>
 				<td style="font-size: x-small; border-top: 0px; border-left: 0px; border-right: 0px; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: black" colspan="3"><center>Pagamento por Multibanco (By LUSOPAY)</center></td>
 				</tr>
@@ -76,7 +76,7 @@ class Magnimeios_Magnimeiosgateway_Block_Checkout_Success extends Mage_Checkout_
 				</tr>
 				</table>';
 		
-			$tabela.='<table cellpadding="3" width="300px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC; '.$showPS.'">
+			$tabela.='<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC; '.$showPS.'">
 				<tr>
 				<td style="font-size: x-small; border-top: 0px; border-left: 0px; border-right: 0px; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: black" colspan="3"><center>Pagamento por Payshop (By LUSOPAY)</center></td>
 				</tr>
