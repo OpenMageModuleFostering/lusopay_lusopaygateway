@@ -303,6 +303,7 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
     
 	public function getCheckout()
     {
+	/*
 		if(Mage::getSingleton('customer/session')->isLoggedIn())
 		{
 			//echo "entrou aqui";
@@ -310,11 +311,14 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
 		}else{
 			$this->_checkout = Mage::getSingleton('adminhtml/session_quote');
 		}
-		/* Codigo antigo
+		*/
+		// Codigo antigo
         if (empty($this->_checkout)) {
             $this->_checkout = Mage::getSingleton('checkout/session');
-        }
-		*/
+        }else{
+			$this->_checkout = Mage::getSingleton('adminhtml/session_quote');
+		}
+		
         return $this->_checkout;
     }
 
