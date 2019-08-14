@@ -199,7 +199,7 @@ $ch = curl_init();
 				$chave       = $this->getConfigData('chave');
 				$nif         = $this->getConfigData('nif');
 				
-				$soapUrl = "https://services.lusopay.com/PaymentServices_test/PaymentServices.svc?wsdl";
+				$soapUrl = "https://services.lusopay.com/PaymentServices/PaymentServices.svc?wsdl";
 		
 		$xml_post_string='<?xml version="1.0" encoding="utf-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:pay="http://schemas.datacontract.org/2004/07/PaymentServices">
