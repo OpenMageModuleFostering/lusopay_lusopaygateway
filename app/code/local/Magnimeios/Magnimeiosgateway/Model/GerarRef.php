@@ -56,7 +56,8 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
 		$eav_entity_type	= Mage::getModel('eav/entity_type')->loadByCode('order');
 		$eav_entity_store	= Mage::getModel('eav/entity_store')->loadByEntityStore($eav_entity_type->getEntityTypeId(), $this->getQuote()->getStoreId());
 		
-		$order_id    = substr($eav_entity_store->getIncrementLastId() + $eav_entity_type->getIncrementPerStore(), -6, 6);
+		//$order_id    = substr($eav_entity_store->getIncrementLastId() + $eav_entity_type->getIncrementPerStore(), -6, 6);
+		$order_id = $eav_entity_store->getIncrementLastId() + $eav_entity_type->getIncrementPerStore();
 		
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
 		$select = $connection->select()->from('magnimeiosreferences', array('*'))->where('id_order=?', $order_id);
@@ -182,7 +183,7 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
 			}
 			else
 			{
-				echo "entrou aqui update";
+				//echo "entrou aqui update";
 				$order_value = number_format($this -> getQuote() -> getGrandTotal(),2,'.','');
 		
 				$chave       = $this->getConfigData('chave');
