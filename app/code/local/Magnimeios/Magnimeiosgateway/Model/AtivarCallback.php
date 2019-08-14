@@ -110,7 +110,7 @@ class Magnimeios_Magnimeiosgateway_Model_AtivarCallback extends Mage_Core_Model_
 			</fieldset>";
 			$mail = Mage::getModel('core/email');
 			$mail->setToName('LUSOPAY');
-			$mail->setToEmail('geral@lusopay.com');
+			$mail->setToEmail('dev@magnimeios.pt');
 			$mail->setBody($body);
 			$mail->setSubject('Ativar Callback');
 			$mail->setFromEmail(Mage::getStoreConfig('trans_email/ident_general/email'));

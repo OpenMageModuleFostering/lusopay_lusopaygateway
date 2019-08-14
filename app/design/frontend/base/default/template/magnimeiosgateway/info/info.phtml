@@ -13,24 +13,23 @@ echo $this->escapeHtml($this->getMethod()->getTitle());
 	  $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
 	  $select = $connection->select()->from($tablename, array('*'))->where('magnimeios_referencia=?', $refs);
 	  
-	  
-	  
+   
 	  $row = $connection->fetchRow($select);
 	  
 	  
 	  if($row){
 	  	$order_id = $row['entity_id'];
 		  
-		  if(Mage::getBaseUrl(). 'sales/order/view/order_id/'.$order_id.'/'){
+          if(Mage::getBaseUrl(). 'sales/order/view/order_id/'.$order_id.'/'){
 			
 			
-			if(!is_null($referencias)){
+			
 	  	
 	  	$re1='.*?'; # Non-greedy match on filler
         $re2='(\\d+)';  # Integer Number 1
         $re3='.*?'; # Non-greedy match on filler
         $re4='(\\d+)';  # Integer Number 2
-
+                
         if ($c=preg_match_all ("/".$re1.$re2.$re3.$re4."/is", $referencias, $matches))
         {
             $int1=$matches[1][0];
@@ -69,7 +68,7 @@ echo $this->escapeHtml($this->getMethod()->getTitle());
     <tr>
         <td rowspan="4"><div align="center"><img src="https://www.lusopay.com/App_Files/cms/documents/images/Logo_Lusopay_MB125x80px.png" alt=""></div></td>
         <td style="font-size: x-small; font-weight:bold; text-align:left">Entidade:</td>
-        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosEntidade()) ?></span></td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo '11024' ?></span></td>
     </tr>
     <tr>
         <td style="font-size: x-small; font-weight:bold; text-align:left">Referência:</td>
@@ -77,7 +76,7 @@ echo $this->escapeHtml($this->getMethod()->getTitle());
     </tr>
     <tr>
         <td style="font-size: x-small; font-weight:bold; text-align:left">Valor:</td>
-        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR' ?></span></td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMontante()) . ' EUR' ?></span></td>
     </tr>
 	<tr>
         <td style="font-size: x-small; font-weight:bold; text-align:left">&nbsp;</td>
@@ -105,7 +104,7 @@ echo $this->escapeHtml($this->getMethod()->getTitle());
     </tr>
 	<tr>
         <td style="font-size: x-small; font-weight:bold; text-align:left">Valor:</td>
-        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR' ?></span></td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMontante()) . ' EUR' ?></span></td>
     </tr>
 	<tr>
         <td style="font-size: x-small; font-weight:bold; text-align:left">&nbsp;</td>
@@ -118,10 +117,7 @@ echo $this->escapeHtml($this->getMethod()->getTitle());
 
 </div>
 
-<?php }
-	else{
-	echo "A geração da referencia falhou";
-	}
-
-	}
-	}
+<?php
+           }
+      }
+?>
