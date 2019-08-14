@@ -21,7 +21,7 @@ class Magnimeios_Magnimeiosgateway_CallbackController extends Mage_Core_Controll
 				//$refPS = $this -> getRequest() -> getParam('ref');
 				$valor = $this -> getRequest() -> getParam('valor');
 				$valor_final = str_replace(',', '.',$valor);
-				$valor_total_final = number_format($valor_final, 2);
+				$valor_total_final = number_format($valor_final, 2,'.','');
 				
 				if ($entidade == '11024') {
 
