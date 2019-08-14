@@ -6,7 +6,7 @@ class Magnimeios_Magnimeiosgateway_Model_GerarRef extends Mage_Payment_Model_Met
 	protected $_paymentMethod = 'magnimeiosgateway';
     protected $_formBlockType = 'magnimeiosgateway/form';
     protected $_infoBlockType = 'magnimeiosgateway/info';
-    protected $_allowCurrencyCode = array('EUR');
+    protected $_allowCurrencyCode = 'EUR';
 
 
 	protected $_isGateway                   = false;
@@ -338,7 +338,7 @@ $ch = curl_init();
         if ($order_value >= 999999.99) {
             Mage::throwException(Mage::helper('magnimeiosgateway')->__('O valor excede o limite para pagamento na rede MB e PS'));
         }
-        $currency_code = $this->getQuote()->getBaseCurrencyCode();
+        $currency_code = Mage::app()->getStore()->getCurrentCurrencyCode();
 		//var_dump($currency_code);
 		//die();
         if ($currency_code != $this->_allowCurrencyCode) {
