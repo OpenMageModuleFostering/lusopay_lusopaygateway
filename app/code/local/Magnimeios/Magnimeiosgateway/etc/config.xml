@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Magnimeios_Magnimeiosgateway>
-            <version>2.1.0</version>
+            <version>2.3.10</version>
         </Magnimeios_Magnimeiosgateway>
     </modules>
     <frontend>
@@ -133,7 +133,7 @@
                 <specificcountry>PT</specificcountry>
 				<chave></chave>
 				<nif></nif>
-				<mensagem></mensagem>
+				<mensagem>Aviso: Na página seguinte poderá ver a(s) tabela(s).</mensagem>
                 <payment_action>order</payment_action>
 				<active_callback>0</active_callback>
             </magnimeiosgateway>

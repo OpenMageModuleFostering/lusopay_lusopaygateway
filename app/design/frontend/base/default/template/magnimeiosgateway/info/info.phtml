@@ -1,8 +1,30 @@
 <?php
-      //Get Referencias
+
+echo $this->escapeHtml($this->getMethod()->getTitle());
+//Get Referencias
       $referencias = $this->htmlEscape($this->getInfo()->getMagnimeiosReferencia());
 	  
-	  if(!is_null($referencias)){
+	  $refs = $this->getInfo()->getMagnimeiosReferencia();
+	  
+	  //$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+	  $table ='sales_flat_order_payment';
+	  $tablename= Mage::getSingleton("core/resource")->getTableName($table);
+	  
+	  $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+	  $select = $connection->select()->from($tablename, array('*'))->where('magnimeios_referencia=?', $refs);
+	  
+	  
+	  
+	  $row = $connection->fetchRow($select);
+	  
+	  
+	  if($row){
+	  	$order_id = $row['entity_id'];
+		  
+		  if(Mage::getBaseUrl(). 'sales/order/view/order_id/'.$order_id.'/'){
+			
+			
+			if(!is_null($referencias)){
 	  	
 	  	$re1='.*?'; # Non-greedy match on filler
         $re2='(\\d+)';  # Integer Number 1
@@ -14,6 +36,7 @@
             $int1=$matches[1][0];
             $int2=$matches[2][0];
         }
+		
 		
 		if ($int1 == '1'){
 				$showPS = 'display:none;';
@@ -39,7 +62,7 @@
 
 
   <div align="center">
-<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showMB;?>">
+<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showMB; ?>">
     <tbody><tr>
         <td style="font-size: x-small; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>Pagamento por Multibanco (By LUSOPAY)</center></td>
     </tr>
@@ -68,7 +91,7 @@
 	
 
 	
-	<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showPS;?>">
+	<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showPS; ?>">
     <tbody>
 	<tr>
         <td style="font-size: x-small; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>Pagamento por Payshop (By LUSOPAY)</center></td>
@@ -96,6 +119,9 @@
 </div>
 
 <?php }
-		else{
-			echo "A geração da referencia falhou";
-		}
+	else{
+	echo "A geração da referencia falhou";
+	}
+
+	}
+	}
