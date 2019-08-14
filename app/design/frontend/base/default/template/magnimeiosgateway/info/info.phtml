@@ -1,0 +1,101 @@
+<?php
+      //Get Referencias
+      $referencias = $this->htmlEscape($this->getInfo()->getMagnimeiosReferencia());
+	  
+	  if(!is_null($referencias)){
+	  	
+	  	$re1='.*?'; # Non-greedy match on filler
+        $re2='(\\d+)';  # Integer Number 1
+        $re3='.*?'; # Non-greedy match on filler
+        $re4='(\\d+)';  # Integer Number 2
+
+        if ($c=preg_match_all ("/".$re1.$re2.$re3.$re4."/is", $referencias, $matches))
+        {
+            $int1=$matches[1][0];
+            $int2=$matches[2][0];
+        }
+		
+		if ($int1 == '1'){
+				$showPS = 'display:none;';
+				$int1='';
+		}
+		else{
+			$showPS = '';
+			$int1 = substr($int1,0,3).' '.substr($int1,3,3).' '.substr($int1,6,3).' '.substr($int1,9,3).' '.substr($int1,12,1);
+		}
+		
+		if ($int2 == '1'){
+			$showMB = 'display:none;';
+			$int2='';
+		}
+		else{
+			$showMB = '';
+			$int2 = substr($int2,0,3).' '.substr($int2,3,3).' '.substr($int2,6,3);
+		}
+		
+	  
+?>
+
+
+
+  <div align="center">
+<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showMB;?>">
+    <tbody><tr>
+        <td style="font-size: x-small; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>Pagamento por Multibanco (By LUSOPAY)</center></td>
+    </tr>
+    <tr>
+        <td rowspan="4"><div align="center"><img src="https://www.lusopay.com/App_Files/cms/documents/images/Logo_Lusopay_MB125x80px.png" alt=""></div></td>
+        <td style="font-size: x-small; font-weight:bold; text-align:left">Entidade:</td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosEntidade()) ?></span></td>
+    </tr>
+    <tr>
+        <td style="font-size: x-small; font-weight:bold; text-align:left">Referência:</td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo $int2 ?></span></td>
+    </tr>
+    <tr>
+        <td style="font-size: x-small; font-weight:bold; text-align:left">Valor:</td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR' ?></span></td>
+    </tr>
+	<tr>
+        <td style="font-size: x-small; font-weight:bold; text-align:left">&nbsp;</td>
+        <td style="font-size: x-small; text-align:left">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="font-size: xx-small;border-top: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>O tal&atilde;o emitido pela caixa autom&aacute;tica faz prova de pagamento. Conserve-o.</center></td>
+    </tr>
+	</tbody></table>
+
+	
+
+	
+	<table cellpadding="3" width="400px" cellspacing="0" style="margin-top: 10px;border: 1px solid #DCDCDC;<?php echo $showPS;?>">
+    <tbody>
+	<tr>
+        <td style="font-size: x-small; border-bottom: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>Pagamento por Payshop (By LUSOPAY)</center></td>
+    </tr>
+	<tr>
+        <td rowspan="4"><div align="center"><img src="https://www.lusopay.com/App_Files/cms/documents/images/Logo_Lusopay_Payshop125x80px.png" alt=""></div></td>
+    </tr>
+	<tr>
+        <td style="font-size: x-small; font-weight:bold; text-align:left">Referência:</td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo $int1 ?></span></td>
+    </tr>
+	<tr>
+        <td style="font-size: x-small; font-weight:bold; text-align:left">Valor:</td>
+        <td style="font-size: x-small; text-align:left"><span><?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR' ?></span></td>
+    </tr>
+	<tr>
+        <td style="font-size: x-small; font-weight:bold; text-align:left">&nbsp;</td>
+        <td style="font-size: x-small; text-align:left">&nbsp;</td>
+    </tr>
+	<tr>
+        <td style="font-size: xx-small;border-top: 1px solid #DCDCDC; background-color: #DCDCDC; color: Black" colspan="3"><center>O tal&atilde;o emitido faz prova de pagamento. Conserve-o.</center></td>
+    </tr>
+	</tbody></table>
+
+</div>
+
+<?php }
+		else{
+			echo "A geração da referencia falhou";
+		}

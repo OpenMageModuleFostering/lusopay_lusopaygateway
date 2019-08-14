@@ -1,0 +1,62 @@
+
+<?php
+	$referencias = $this->htmlEscape($this->getInfo()->getMagnimeiosReferencia());
+	
+	if(!is_null($referencias)){
+		$re1='.*?'; # Non-greedy match on filler
+	$re2='(\\d+)';  # Integer Number 1
+	$re3='.*?'; # Non-greedy match on filler
+	$re4='(\\d+)';  # Integer Number 2
+
+		if ($c=preg_match_all ("/".$re1.$re2.$re3.$re4."/is", $referencias, $matches))
+		{
+    		$int1=$matches[1][0];
+            $int2=$matches[2][0];
+		}
+		
+		if ($int1 == '1'){
+				$showPS = 'display:none;';
+				$int1='';
+		}
+		else{
+			$showPS = '';
+			$int1 = substr($int1,0,3).' '.substr($int1,3,3).' '.substr($int1,6,3).' '.substr($int1,9,3).' '.substr($int1,12,1);
+		}
+		
+		if ($int2 == '1'){
+			$showMB = 'display:none;';
+			$int2='';
+		}
+		else{
+			$showMB = '';
+			$int2 = substr($int2,0,3).' '.substr($int2,3,3).' '.substr($int2,6,3);
+		}
+		
+	
+?>
+
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
+	{{pdf_row_separator}}
+{{pdf_row_separator}}
+  Pagamento por Multibanco (By LUSOPAY)
+  {{pdf_row_separator}}
+  Entidade: <?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosEntidade()) ?>
+  {{pdf_row_separator}}
+  Referência: <?php echo $int2 ?>
+  {{pdf_row_separator}}
+  Valor: <?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR' ?>
+  {{pdf_row_separator}}
+  {{pdf_row_separator}}
+  {{pdf_row_separator}}
+  Pagamento por Payshop (by LUSOPAY)
+  {{pdf_row_separator}}
+  
+  Referência: <?php echo $int1 ?>
+  {{pdf_row_separator}}
+  Valor: <?php echo $this->htmlEscape($this->getInfo()->getMagnimeiosMontante()) . ' EUR' ?>
+  
+
+<?php }
+		else{
+			echo "A geração da referencia falhou";
+		}

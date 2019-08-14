@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<checkout_onepage_success>
+        <reference name="checkout.success">
+            <block type="magnimeiosgateway/checkout_success" name="checkout.success.lusopay.checkout" before="-" template="magnimeiosgateway/checkout/success.phtml">
+        </reference>
+    </checkout_onepage_success>
+</layout>
