@@ -21,16 +21,17 @@ class Magnimeios_Magnimeiosgateway_CallbackController extends Mage_Core_Controll
 				//$refPS = $this -> getRequest() -> getParam('ref');
 				$valor = $this -> getRequest() -> getParam('valor');
 				$valor_final = str_replace(',', '.',$valor);
+				$valor_total_final = number_format($valor_final, 2);
 				
 				if ($entidade == '11024') {
 
-					$query = "SELECT * FROM magnimeiosreferences WHERE refMB =" . $ref . " AND value=" . $valor_final . " AND STATUS IS NULL";
+					$query = "SELECT * FROM magnimeiosreferences WHERE refMB =" . $ref . " AND value=" . $valor_total_final . " AND STATUS IS NULL";
 
 				} 
 				elseif($entidade == '10120') {
 					$refPayshop = $entidade.$ref;
 
-					$query = "SELECT * FROM magnimeiosreferences where refPS like '%" . $refPayshop . "%' AND value=" . $valor_final . " AND STATUS IS NULL";
+					$query = "SELECT * FROM magnimeiosreferences where refPS like '%" . $refPayshop . "%' AND value=" . $valor_total_final . " AND STATUS IS NULL";
 
 				}
 				
